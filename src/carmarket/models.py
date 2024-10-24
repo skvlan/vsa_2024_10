@@ -70,7 +70,7 @@ class Favorite(models.Model):
 
 class ContactSeller(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    car = models.ForeignKey("carmarket.Car", on_delete=models.CASCADE)
+    car = models.ForeignKey("carmarket.Car", on_delete=models.CASCADE, null=True, blank=True)
     message = models.TextField(max_length=1024, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
