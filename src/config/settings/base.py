@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "blog",
     "common",
     "carmarket",
+    'django_extensions',
 ]
 
 AUTH_USER_MODEL = "accounts.Customer"
