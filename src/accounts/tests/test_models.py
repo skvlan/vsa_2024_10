@@ -5,6 +5,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from carmarket.models import Car
+from carmarket.utils.samples import sample_car, sample_card
 
 
 class TestCarMarketModels(TestCase):
@@ -19,17 +20,7 @@ class TestCarMarketModels(TestCase):
             email="admin@example.com", password=self.manager_password
         )
 
-        self.car = Car.objects.create(
-            make="Toyota",
-            model="Camry",
-            year=2020,
-            generation="XV70",
-            price=30000,
-            category=0,
-            fuel_type=0,
-            transmission=1,
-            description="A reliable car.",
-        )
+        self.car = sample_car(carmarket=sample_card(title="Test Card"), order_number=1)
 
     def test_user_login_wrong_email(self):
         user_login = self.client.login(email="wrong_email", password=self.user_password)
@@ -46,16 +37,6 @@ class TestCarMarketModels(TestCase):
 
     def test_create_car(self):
         car_count = Car.objects.count()
-        new_car = Car.objects.create(
-            make="Honda",
-            model="Accord",
-            year=2021,
-            generation="10th",
-            price=25000,
-            category=0,
-            fuel_type=0,
-            transmission=1,
-            description="Another reliable car.",
-        )
+        new_car = sample_car(carmarket=sample_card(title="New Test Card"), order_number=1)
         self.assertEqual(Car.objects.count(), car_count + 1)
-        self.assertEqual(new_car.model, "Accord")
+        self.assertEqual(new_car.model, "Camry")

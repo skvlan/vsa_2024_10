@@ -4,32 +4,29 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
-class CATEGORY_CHOISES(models.IntegerChoices):
-    SEDAN = 0, "Sedan"
-    HATCHBACK = 1, "Hatchback"
-    UNIVERSAL = 2, "Universal"
-    COUPE = 3, "Coupe"
-    SUV = 4, "SUV"
-    CROSSOVER = 5, "Crossover"
-    MINIVAN = 6, "Minivan"
-    PICKUP = 7, "Pickup"
-    CABRIOLET = 8, "Cabriolet"
-
-
-class FUEL_CHOISES(models.IntegerChoices):
-    PETROL = 0, "Petrol"
-    DIESEL = 1, "Diesel"
-    ELECTRIC = 2, "Electric"
-    HYBRID = 3, "Hybrid"
-
-
-class TRANSMISSION_CHOISES(models.IntegerChoices):
-    MANUAL = 0, "Manual"
-    AUTOMATIC = 1, "Automatic"
-    ROBOT = 2, "Robot"
-
-
 class Car(models.Model):
+    class CATEGORY_CHOISES(models.IntegerChoices):
+        SEDAN = 0, "Sedan"
+        HATCHBACK = 1, "Hatchback"
+        UNIVERSAL = 2, "Universal"
+        COUPE = 3, "Coupe"
+        SUV = 4, "SUV"
+        CROSSOVER = 5, "Crossover"
+        MINIVAN = 6, "Minivan"
+        PICKUP = 7, "Pickup"
+        CABRIOLET = 8, "Cabriolet"
+
+    class FUEL_CHOISES(models.IntegerChoices):
+        PETROL = 0, "Petrol"
+        DIESEL = 1, "Diesel"
+        ELECTRIC = 2, "Electric"
+        HYBRID = 3, "Hybrid"
+
+    class TRANSMISSION_CHOISES(models.IntegerChoices):
+        MANUAL = 0, "Manual"
+        AUTOMATIC = 1, "Automatic"
+        ROBOT = 2, "Robot"
+
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.IntegerField(max_length=4)
