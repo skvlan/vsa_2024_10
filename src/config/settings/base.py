@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     "carmarket",
 ]
 
+AUTH_USER_MODEL = "accounts.Customer"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
