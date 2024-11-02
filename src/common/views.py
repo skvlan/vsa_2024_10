@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
@@ -43,7 +44,7 @@ class UserActivationView(RedirectView):
             pk = force_str(urlsafe_base64_decode(uidb64))
             current_user = get_user_model().objects.get(pk=pk)
         except (get_user_model().DoesNotExist, ValueError, TypeError):
-            return HttpResponse("Wrong data!")
+            render(request, "errors/wrong_data.html")
 
         if current_user and TokenGenerator().check_token(current_user, token):
             current_user.is_active = True
@@ -52,4 +53,4 @@ class UserActivationView(RedirectView):
 
             return super().get(request, *args, **kwargs)
 
-        return HttpResponse("Wrong data!")
+        render(request, "errors/wrong_data.html")

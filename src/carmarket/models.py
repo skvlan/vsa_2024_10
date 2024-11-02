@@ -1,10 +1,13 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
 class Car(models.Model):
+    CARD_MAX_COUNT = 10
+
     class CATEGORY_CHOISES(models.IntegerChoices):
         SEDAN = 0, "Sedan"
         HATCHBACK = 1, "Hatchback"
@@ -38,11 +41,11 @@ class Car(models.Model):
         choices=TRANSMISSION_CHOISES.choices, default=TRANSMISSION_CHOISES.MANUAL
     )
     description = models.TextField(max_length=1024, blank=True, null=True)
-    favorites = models.ForeignKey("carmarket.Favorite", on_delete=models.CASCADE)
+    favorites = models.ForeignKey("carmarket.Favorite", on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to="img/cars/", null=True, blank=True)
 
     def __str__(self):
-        return f"{self.make} {self.model} ({self.pk})"
+        return f"{self.make} {self.model} ({self.id})"
 
 
 class Card(models.Model):
@@ -51,10 +54,11 @@ class Card(models.Model):
     listing_date = models.DateTimeField(_("date joined"), default=timezone.now)
     is_active = models.BooleanField(_("active"), default=True)
     views_count = models.PositiveIntegerField(default=0)
+    order_number = models.PositiveSmallIntegerField(validators=[MaxValueValidator(Car.CARD_MAX_COUNT)], default=1)
     contact_phone = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.car} {self.listing_date} {self.is_active} ({self.pk})"
+        return f"{self.car} {self.listing_date} {self.is_active} ({self.id})"
 
 
 class Favorite(models.Model):
@@ -62,7 +66,7 @@ class Favorite(models.Model):
     cars = models.ManyToManyField("carmarket.Car", related_name="favorited_by")
 
     def __str__(self):
-        return f"{self.user} ({self.pk})"
+        return f"{self.user} ({self.id})"
 
 
 class ContactSeller(models.Model):
