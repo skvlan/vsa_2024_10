@@ -34,9 +34,9 @@ class CardsSerializer(ModelSerializer):
 
 
 class CarsSerializer(ModelSerializer):
-    category = CharField(source="get_category_display")
-    fuel_type = CharField(source="get_fuel_type_display")
-    transmission = CharField(source="get_transmission_display")
+    category = CharField(source="get_category_display", read_only=True)
+    fuel_type = CharField(source="get_fuel_type_display", read_only=True)
+    transmission = CharField(source="get_transmission_display", read_only=True)
 
     class Meta:
         model = Car

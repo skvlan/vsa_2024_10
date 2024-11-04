@@ -42,7 +42,6 @@ class CarsCreateView(CreateAPIView):
 class CarsDeleteView(DestroyAPIView):
     queryset = Car.objects.all()
     serializer_class = CarsSerializer
-    permission_classes = [IsAuthenticated]
 
 
 class CarsUpdateView(UpdateAPIView):

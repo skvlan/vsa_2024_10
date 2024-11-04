@@ -42,7 +42,7 @@ class Car(models.Model):
     )
     description = models.TextField(max_length=1024, blank=True, null=True)
     favorites = models.ForeignKey("carmarket.Favorite", on_delete=models.CASCADE, blank=True, null=True)
-    image = models.ImageField(upload_to="img/cars/", null=True, blank=True)
+    image = models.ImageField(upload_to="media/img/cars/", null=True, blank=True)
 
     def __str__(self):
         return f"{self.make} {self.model} ({self.id})"
