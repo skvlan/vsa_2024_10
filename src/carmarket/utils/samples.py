@@ -1,13 +1,17 @@
 from carmarket.models import Car, Card
 
 
-def sample_card(title: str, **params) -> Card:
-    default = {"description": "Some text"}
+def sample_card(user, car: Car, title: str, **params) -> Card:
+    default = {
+        "order_number": 1,
+        "contact_phone": "+1234567890",
+        "is_active": True,
+    }
     default.update(params)
-    return Card.objects.create(title=title, **default)
+    return Card.objects.create(user=user, car=car, title=title, **default)
 
 
-def sample_car(carmarket: Card, order_number: int, **params) -> Card:
+def sample_car(**params) -> Car:
     default = {
         "make": "Toyota",
         "model": "Camry",
@@ -20,4 +24,4 @@ def sample_car(carmarket: Card, order_number: int, **params) -> Card:
         "description": "Another reliable car.",
     }
     default.update(params)
-    return Car.objects.create(carmarket=carmarket, order_number=order_number, **default)
+    return Car.objects.create(**default)

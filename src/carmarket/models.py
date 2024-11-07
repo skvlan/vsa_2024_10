@@ -32,9 +32,9 @@ class Car(models.Model):
 
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
-    year = models.IntegerField(max_length=4)
+    year = models.IntegerField()
     generation = models.CharField(max_length=50)
-    price = models.IntegerField(max_length=20)
+    price = models.IntegerField()
     category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOISES.choices, default=CATEGORY_CHOISES.UNIVERSAL)
     fuel_type = models.PositiveSmallIntegerField(choices=FUEL_CHOISES.choices, default=FUEL_CHOISES.PETROL)
     transmission = models.PositiveSmallIntegerField(
@@ -49,6 +49,7 @@ class Car(models.Model):
 
 
 class Card(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
     car = models.OneToOneField("carmarket.Car", on_delete=models.CASCADE)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     listing_date = models.DateTimeField(_("date joined"), default=timezone.now)
