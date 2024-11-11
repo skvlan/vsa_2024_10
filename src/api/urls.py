@@ -3,9 +3,9 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions, routers
 
-from api.views import (CardDetailView, CardsListView, CarsCreateView,
-                       CarsDeleteView, CarsListView, CarsUpdateView,
-                       ClientViewSet)
+from api.views import (CardDetailView, CardsDeleteView, CardsListView,
+                       CardsUpdateView, CarsCreateView, CarsDeleteView,
+                       CarsListView, CarsUpdateView, ClientViewSet)
 
 app_name = "api"
 
@@ -31,6 +31,9 @@ urlpatterns = [
     path("docs/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path("car/<int:pk>/cards/<int:order>/", CardDetailView.as_view(), name="card_details"),
     path("cards/", CardsListView.as_view(), name="cards_list"),
+    path("cardы/create/", CardsDeleteView.as_view(), name="card_create"),
+    path("cardы/<int:pk>/update/", CardsUpdateView.as_view(), name="card_update"),
+    path("cardы/<int:pk>/delete/", CardsDeleteView.as_view(), name="card_delete"),
     path("cars/", CarsListView.as_view(), name="cars_list"),
     path("cars-create/", CarsCreateView.as_view(), name="cars_create"),
     path("cars/<int:pk>/delete/", CarsDeleteView.as_view(), name="cards-delete"),

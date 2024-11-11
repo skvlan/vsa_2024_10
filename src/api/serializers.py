@@ -14,7 +14,7 @@ class ClientSerializer(ModelSerializer):
 class CarSerializer(ModelSerializer):
     class Meta:
         model = Car
-        fields = "__all__"
+        fields = ["make", "model", "year", "generation", "category", "fuel_type", "transmission"]
 
 
 class CardSerializer(ModelSerializer):
@@ -22,7 +22,7 @@ class CardSerializer(ModelSerializer):
 
     class Meta:
         model = Card
-        fields = ["user", "listing_date", "is_active", "contact_phone", "car"]
+        fields = ["id", "order_number", "title", "user", "is_active", "contact_phone", "car"]
 
 
 class CardsSerializer(ModelSerializer):
@@ -40,4 +40,4 @@ class CarsSerializer(ModelSerializer):
 
     class Meta:
         model = Car
-        fields = "__all__"
+        fields = ["make", "model", "year", "generation", "category", "fuel_type", "transmission"]
