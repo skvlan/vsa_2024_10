@@ -91,7 +91,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="{% url 'cards_list' %}">Cars</a>
                 </li>
 
                 <!-- Dropdown Menu -->
@@ -127,6 +127,8 @@
   </nav>
 
 </header>
+
+
 
 <main>
 
@@ -179,6 +181,7 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+
   </div>
 
 
@@ -258,6 +261,12 @@
     <hr class="featurette-divider">
 
     <!-- /END THE FEATURETTES -->
+    <main class="px-3">
+      {% block content %}
+      <h1>Сarmarket</h1>
+      <p class="lead"></p>
+      {% endblock content %}
+    </main>
 
   </div><!-- /.container -->
 

@@ -35,6 +35,7 @@ class Car(models.Model):
     year = models.IntegerField()
     generation = models.CharField(max_length=50)
     price = models.IntegerField()
+    mileage = models.IntegerField(default=0)
     category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOISES.choices, default=CATEGORY_CHOISES.UNIVERSAL)
     fuel_type = models.PositiveSmallIntegerField(choices=FUEL_CHOISES.choices, default=FUEL_CHOISES.PETROL)
     transmission = models.PositiveSmallIntegerField(
