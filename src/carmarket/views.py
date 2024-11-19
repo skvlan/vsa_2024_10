@@ -1,12 +1,16 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import ListView, DetailView
 
 from .models import Car, Card
 
 
-def cards_list_view(request):
-    cards = Card.objects.filter(is_active=True).select_related("car")
-    return render(request, "cards/cards_list.html", {"cards": cards})
+class CardsListView(ListView):
+    context_object_name = "cards"
+    model = Card
+    template_name = "cards/cards_list.html"
+
+    def get_queryset(self):
+        return Card.objects.filter(is_active=True).select_related("car")
 
 
 class CardDetailView(DetailView):
