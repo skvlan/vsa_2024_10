@@ -5,7 +5,7 @@ from carmarket.views import (AddToFavorites, CardDetailView, CardsListView,
                              CreateCard, DeleteCard, FavoritesListView,
                              GenerateCardsView, GenerateCarsView,
                              GenerateContactsView, GenerateFavoritesView,
-                             UpdateCard, bitcoin, normalize_emails)
+                             RemoveFromFavorites, UpdateCard)
 from config.settings import dev
 
 app_name = "cards"
@@ -16,9 +16,8 @@ urlpatterns = [
     path("update-card/<int:pk>/", UpdateCard.as_view(), name="card_update"),
     path("delete-card/<int:pk>/", DeleteCard.as_view(), name="card_delete"),
     path("favorites/<int:pk>/", AddToFavorites.as_view(), name="add_to_favorites"),
+    path("remove_from_favorites/<int:pk>/", RemoveFromFavorites.as_view(), name="remove_from_favorites"),
     path("favorites/", FavoritesListView.as_view(), name="favorites_list"),
-    path("bitcoin/", bitcoin, name="bitcoin"),
-    path("email/", normalize_emails, name="normalize_emails"),
     path("generate-cars/", GenerateCarsView.as_view(), name="generate_cars"),
     path("generate-cards/", GenerateCardsView.as_view(), name="generate_cards"),
     path("generate-favorites/", GenerateFavoritesView.as_view(), name="generate_favorites"),

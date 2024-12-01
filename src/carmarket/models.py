@@ -57,6 +57,8 @@ class Card(models.Model):
     is_active = models.BooleanField(_("active"), default=True)
     views_count = models.PositiveIntegerField(default=0)
     order_number = models.PositiveSmallIntegerField(validators=[MaxValueValidator(Car.CARD_MAX_COUNT)], default=1)
+    seller_name = models.CharField(max_length=120, blank=True, null=True)
+    seller_email = models.EmailField(_("email address"), blank=True, null=True)
     contact_phone = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):

@@ -6,7 +6,7 @@ from .models import Car, Card
 class CardCarForm(forms.ModelForm):
     class Meta:
         model = Card
-        fields = ["title", "contact_phone", "order_number", "is_active"]
+        fields = ["contact_phone", "is_active"]
 
     car_make = forms.CharField(max_length=50, label="Make")
     car_model = forms.CharField(max_length=50, label="Model")
@@ -64,3 +64,19 @@ class CardCarForm(forms.ModelForm):
             card.save()
 
         return card
+
+
+class CarSearchForm(forms.Form):
+    make = forms.CharField(required=False, label="Make", max_length=50)
+    model = forms.CharField(required=False, label="Model", max_length=50)
+    year_min = forms.IntegerField(required=False, label="Year (From)")
+    year_max = forms.IntegerField(required=False, label="Year (To)")
+    category = forms.ChoiceField(
+        required=False, label="Category", choices=[("", "Any")] + list(Car.CATEGORY_CHOISES.choices)
+    )
+    fuel_type = forms.ChoiceField(
+        required=False, label="Fuel Type", choices=[("", "Any")] + list(Car.FUEL_CHOISES.choices)
+    )
+    transmission = forms.ChoiceField(
+        required=False, label="Transmission", choices=[("", "Any")] + list(Car.TRANSMISSION_CHOISES.choices)
+    )

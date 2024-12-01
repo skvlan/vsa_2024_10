@@ -13,25 +13,6 @@ fake.add_provider(VehicleProvider)
 
 
 @shared_task
-def mine_bitcoin():
-    time.sleep(random.randint(1, 10))
-
-
-@shared_task
-def normalize_email_task(filter):
-    all_users = get_user_model().objects.filter(**filter)
-
-    if all_users:
-        for user in all_users:
-            print(f"Working with {user.email}")
-            user.save()
-    else:
-        print("Empty data")
-
-    return f"Checked {len(all_users)} users"
-
-
-@shared_task
 def generate_cars(count=10):
     categories = [choice[0] for choice in Car.CATEGORY_CHOISES.choices]
     fuel = [choice[0] for choice in Car.FUEL_CHOISES.choices]

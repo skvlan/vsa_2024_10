@@ -5,7 +5,6 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from phonenumber_field.modelfields import PhoneNumberField
 
 from accounts.managers import CustomerManager
 
@@ -20,7 +19,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that email already exists."),
         },
     )
-
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,

@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -19,15 +19,11 @@
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="car-box-3">
                     <a href="{% url 'cards:card_detail' card.car.id %}" class="car-img open-new-window">
-                        <div class="car-thumbnail">
-                            <div class="tag">For Sale</div>
-                            <div class="price-box">
-                                <span>${{ card.car.price }}</span>
-                            </div>
+                        <div class="car-thumbnail" style="display: flex; align-items: center; justify-content: center; overflow: hidden; height: 200px;">
                             {% if card.car.image %}
-                                <img src="{{ card.car.image.url }}" class="d-block w-100" alt="default_car" style="min-height: 200px; max-height: 200px;">
+                                <img src="{{ card.car.image.url }}" class="d-block w-100" alt="default_car" style="align-items: center; min-height: 200px; max-height: 200px; max-width: 325px; border-radius: 10px;">
                             {% else %}
-                                <img src="{% static 'default_car.png' %}" class="d-block w-100" alt="default_car" style="min-height: 200px; max-height: 200px;">
+                                <img src="{% static 'default_car.png' %}" class="d-block w-100" alt="default_car" style="min-height: 200px; max-height: 200px; max-width: 500px;">
                             {% endif %}
                         </div>
                     </a>

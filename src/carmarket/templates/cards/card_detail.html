@@ -13,7 +13,7 @@
                         {% if car.image %}
                             <img src="{{ car.image.url }}" class="d-block w-100" alt="{{ car.make }}" style="max-height: 400px;">
                         {% else %}
-                            <img src="{% static 'media/img/cars/default-car.jpg' %}" class="d-block w-100" alt="default car" style="max-height: 400px;">
+                            <img src="{% static 'default_car.jpg' %}" class="d-block w-100" alt="default car" style="max-height: 400px;">
                         {% endif %}
                     </div>
 
@@ -36,10 +36,8 @@
                     <div class="widget">
                         <h3 class="sidebar-title">Contact Seller</h3>
                         <p>If you are interested in this car, contact with seller at:</p>
-                        <tr>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.phone_number }}</td>
-                        </tr>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Phone number:</strong> {{ card.contact_number }}</p>
                     </div>
                 </div>
             </div>
