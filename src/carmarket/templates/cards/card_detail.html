@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'iframes/base_iframe.html' %}
 
 {% load static %}
 
@@ -11,9 +11,9 @@
                 <div class="car-box-3">
                     <div class="car-thumbnail">
                         {% if car.image %}
-                        <img src="{{ car.image.url }}" class="d-block w-100" alt="{{ car.make }}" style="max-height: 400px;">
+                            <img src="{{ car.image.url }}" class="d-block w-100" alt="{{ car.make }}" style="max-height: 400px;">
                         {% else %}
-                        <img src="{% static 'media/img/cars/default-car.jpg' %}" class="d-block w-100" alt="default car" style="max-height: 400px;">
+                            <img src="{% static 'default_car.jpg' %}" class="d-block w-100" alt="default car" style="max-height: 400px;">
                         {% endif %}
                     </div>
 
@@ -22,13 +22,12 @@
                         <p><strong>Price:</strong> ${{ car.price }}</p>
                         <p><strong>Year:</strong> {{ car.year }}</p>
                         <p><strong>Generation:</strong> {{ car.generation }}</p>
-                        <p><strong>Category:</strong> {{ car.category }}</p>
+                        <p><strong>Category:</strong> {{ car.get_category_display }}</p>
                         <p><strong>Mileage:</strong> {{ car.mileage|default:"No data" }} km</p>
-                        <p><strong>Fuel Type:</strong> {{ car.fuel_type }}</p>
-                        <p><strong>Transmission:</strong> {{ car.transmission }}</p>
+                        <p><strong>Fuel Type:</strong> {{ car.get_fuel_type_display }}</p>
+                        <p><strong>Transmission:</strong> {{ car.get_transmission_display }}</p>
                         <p><strong>Description:</strong> {{ car.description }}</p>
                     </div>
-                <a href="{% url 'cards_list' %}" class="btn btn-primary mt-3">Back to Cars</a>
                 </div>
             </div>
 
@@ -36,11 +35,9 @@
                 <div class="sidebar-right">
                     <div class="widget">
                         <h3 class="sidebar-title">Contact Seller</h3>
-                        <p>If you are interested in this car, contact us at:</p>
-                        <ul>
-                            <li><strong>Email:</strong> info@example.com</li>
-                            <li><strong>Phone:</strong> +1 123 456 7890</li>
-                        </ul>
+                        <p>If you are interested in this car, contact with seller at:</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Phone number:</strong> {{ card.contact_number }}</p>
                     </div>
                 </div>
             </div>

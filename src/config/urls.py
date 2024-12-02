@@ -7,5 +7,5 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("api.urls")),
     path("blog/", include("blog.urls")),
-    path("carmarket/", include("carmarket.urls")),
+    path("", include("carmarket.urls")),
 ]

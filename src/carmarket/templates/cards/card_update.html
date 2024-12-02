@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Edit Card and Car Information</h1>
+    <form method="POST" enctype="multipart/form-data" style="width: 25em; margin: auto">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-info">Update</button>
+    </form>
+{% endblock content %}

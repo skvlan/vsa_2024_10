@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="POST" style="width: 25em; margin: auto">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ card.title }}?</p>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+{% endblock content %}
