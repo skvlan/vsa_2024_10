@@ -8,7 +8,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "ec2-3-89-200-227.compute-1.amazonaws.com"]
 
 DATABASES = {
     "default": {
