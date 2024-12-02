@@ -1,5 +1,7 @@
 import os
 
+import mongoengine
+
 from config.settings.base import *  # NOQA:
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -11,6 +13,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS += ["django_extensions"]  # NOQA:
+
+mongoengine.connect(host=os.environ.get("DJANGO_MONGO_CONNECTION"))
 
 if os.environ.get("GITHUB_WORKFLOW"):
     DATABASES = {
@@ -51,4 +55,8 @@ else:
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]  # NOQA:
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"  # NOQA:

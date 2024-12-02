@@ -22,7 +22,7 @@ class UserRegistrationView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.is_active = False
+        self.object.is_active = True
         self.object.save()
 
         return super().form_valid(form)

@@ -1,0 +1,48 @@
+{% extends 'iframes/base_iframe.html' %}
+
+{% load static %}
+
+{% block title %} | {{ car.make }} {{ car.model }} Details {% endblock %}
+{% block content %}
+<div class="car-details content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="car-box-3">
+                    <div class="car-thumbnail">
+                        {% if car.image %}
+                            <img src="{{ car.image.url }}" class="d-block w-100" alt="{{ car.make }}" style="max-height: 400px;">
+                        {% else %}
+                            <img src="{% static 'default_car.jpg' %}" class="d-block w-100" alt="default car" style="max-height: 400px;">
+                        {% endif %}
+                    </div>
+
+                    <div class="detail mt-4">
+                        <h1>{{ car.make }} {{ car.model }}</h1>
+                        <p><strong>Price:</strong> ${{ car.price }}</p>
+                        <p><strong>Year:</strong> {{ car.year }}</p>
+                        <p><strong>Generation:</strong> {{ car.generation }}</p>
+                        <p><strong>Category:</strong> {{ car.get_category_display }}</p>
+                        <p><strong>Mileage:</strong> {{ car.mileage|default:"No data" }} km</p>
+                        <p><strong>Fuel Type:</strong> {{ car.get_fuel_type_display }}</p>
+                        <p><strong>Transmission:</strong> {{ car.get_transmission_display }}</p>
+                        <p><strong>Description:</strong> {{ car.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <div class="widget">
+                        <h3 class="sidebar-title">Contact Seller</h3>
+                        <p>If you are interested in this car, contact with seller at:</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Phone number:</strong> {{ card.contact_number }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

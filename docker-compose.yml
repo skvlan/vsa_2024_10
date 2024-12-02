@@ -1,17 +1,17 @@
-
-
 services:
   backend:
     build: ./
     container_name: carmarket_container
     working_dir: /carmarket
     ports:
-      - 8010:8000
+      - ${LOCAL_PORT}:${WSGI_PORT}
     command:
-      - ./commands/start_server_dev.sh
+      - ./commands/start_server_${MODE}.sh
     volumes:
       - ./src:/carmarket/src
       - ./commands:/carmarket/commands
+      - static_content:/carmarket/src/static
+      - media_content:/carmarket/src/media
     env_file:
       - .env
     depends_on:
@@ -20,7 +20,7 @@ services:
   postgres:
     image: postgres:16.4
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     env_file:
@@ -50,14 +50,96 @@ services:
       - .env
     restart: on-failure
 
+  mongoadmin:
+    image: mongo-express
+    restart: on-failure
+    container_name: mongo_admin_container
+    ports:
+      - "8091:8081"
+    env_file:
+      - .env
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
 
-#  nginx:
-#    ...
-#  redis:
-#    ...
-#
+  nginx:
+    image: nginx:1.27
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_content:/carmarket/src/static
+      - media_content:/carmarket/src/media
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
+  redis:
+    image: redis
+    env_file:
+      - .env
+    restart: on-failure
+    depends_on:
+      - backend
+
+  celery:
+    build: ./
+    container_name: celery_container
+    command: ./commands/start_celery.sh
+    restart: on-failure
+    volumes:
+      - ./src:/carmarket
+      - ./commands:/carmarket/commands
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - backend
+
+  celerybeat:
+    build: ./
+    container_name: celerybeat_container
+    command: ./commands/start_celerybeat.sh
+    restart: on-failure
+    volumes:
+      - ./src:/carmarket
+      - ./commands:/carmarket/commands
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - backend
+
+  flower:
+    build: ./
+    container_name: flower_container
+    volumes:
+      - ./src:/carmarket
+    env_file:
+      - .env
+    command: celery -A config flower --broker=redis://redis
+    ports:
+      - "5556:5555"
+    depends_on:
+      - celery
+
+  redisadmin:
+    image: redislabs/redisinsight
+    container_name: redisadmin
+    restart: on-failure
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    depends_on:
+      - redis
 
 volumes:
   pg_data: { }
   pg_admin: { }
   mongo_data: { }
+  static_content: {}
+  media_content: {}

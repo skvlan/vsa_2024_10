@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="sub-banner overview-bgi">
+        <div class="container breadcrumb-area">
+            <div class="breadcrumb-areas">
+                <h1>My Favorites</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="featured-car content-area">
+        <div class="container">
+            <div class="row">
+                {% for car in favorites %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="car-box-3">
+                            <a href="{% url 'cards:card_detail' car.id %}" class="car-img open-new-window">
+                                <div class="car-thumbnail" style="display: flex; align-items: center; justify-content: center; overflow: hidden; height: 200px;">
+                                    {% if car.image %}
+                                        <img src="{{ car.image.url }}" class="d-block w-100" alt="default_car" style="min-height: 200px; max-height: 200px; max-width: 325px; border-radius: 10px;">
+                                    {% else %}
+                                        <img src="{% static 'default_car.png' %}" class="d-block w-100" alt="default_car" style="min-height: 200px; max-height: 200px;">
+                                    {% endif %}
+                                </div>
+                            </a>
+
+                            <div class="detail">
+                                <p><strong>{{ car.make }} {{ car.model }}</strong></p>
+                                <p><strong>Year:</strong> {{ car.year }}</p>
+                                <p><strong>Mileage:</strong> {{ car.mileage|default:"No data" }} km</p>
+                                <p><strong>Fuel Type:</strong> {{ car.get_fuel_type_display }}</p>
+                                <p><strong>Transmission:</strong> {{ car.get_transmission_display }}</p>
+                                <div class="location">
+                                    <form action="{% url 'cards:remove_from_favorites' pk=car.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-block mt-2">
+                                            Remove from Favorites
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No cars in your favorites.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

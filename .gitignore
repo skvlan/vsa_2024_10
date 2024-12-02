@@ -133,6 +133,12 @@ venv.bak/
 # Backups
 backup.json
 
+# Media Files
+.png
+.jpg
+media/
+static/
+
 # Spyder project settings
 .spyderproject
 .spyproject
