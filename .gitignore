@@ -137,7 +137,6 @@ backup.json
 .png
 .jpg
 media/
-static/
 
 # Spyder project settings
 .spyderproject

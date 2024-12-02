@@ -64,6 +64,11 @@ class CardDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        card = get_object_or_404(Card, car=self.object)
+
+        context['card'] = card
+        context['user'] = card.user
+
         return context
 
 
