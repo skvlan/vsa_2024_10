@@ -37,7 +37,7 @@
                         <h3 class="sidebar-title">Contact Seller</h3>
                         <p>If you are interested in this car, contact with seller at:</p>
                         <p><strong>Email:</strong> {{ user.email }}</p>
-                        <p><strong>Phone number:</strong> {{ card.contact_number }}</p>
+                        <p><strong>Phone number:</strong> {{ card.contact_number|default:"No phone number provided" }}</p>
                     </div>
                 </div>
             </div>
