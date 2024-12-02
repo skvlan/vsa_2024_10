@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Cars</h1>
+        </div>
+    </div>
+</div>
+
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            {% for card in cards %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="car-box-3">
+                    <a href="{% url 'card_detail' card.car.id %}" class="car-img">
+                        <div class="car-thumbnail">
+                            <div class="tag">For Sale</div>
+                            <div class="price-box">
+                                <span>${{ card.car.price }}</span>
+                            </div>
+                            {% if card.car.image %}
+                            <img src="{{ card.car.image.url }}" class="d-block w-100" alt="{{ card.car.model }}" style="min-height: 200px; max-height: 200px;">
+                            {% else %}
+                            <img src="{% static 'media/img/cars/M2comp.jpg' %}" class="d-block w-100" alt="default car" style="min-height: 200px; max-height: 200px;">
+                            {% endif %}
+                        </div>
+                    </a>
+
+                    <div class="detail">
+                        <h1 class="title">
+                            <a href="#">{{ card.car.make }} {{ card.car.model }}</a>
+                        </h1>
+                        <p><strong>Year:</strong> {{ card.car.year }}</p>
+                        <p><strong>Mileage:</strong> {{ card.car.mileage|default:"No data" }} km</p>
+                        <p><strong>Category:</strong> {{ card.car.category }}</p>
+                        <div class="location">
+                            <i class="flaticon-pin"></i> {{ card.car.fuel_type }}, {{ card.car.transmission }}
+                        </div>
+
+                        <a href="#" class="btn btn-primary btn-block mt-2">Add to Favorites</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No available cars at the moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

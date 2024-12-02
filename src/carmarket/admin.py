@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from carmarket.models import Car, Card, ContactSeller, Favorite, SearchHistory
+
+admin.site.register([Car, Card, Favorite, ContactSeller, SearchHistory])

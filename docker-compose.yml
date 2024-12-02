@@ -1,0 +1,88 @@
+services:
+  backend:
+    build: ./
+    container_name: carmarket_container
+    working_dir: /carmarket
+    ports:
+      - ${LOCAL_PORT}:${WSGI_PORT}
+    command:
+      - ./commands/start_server_${MODE}.sh
+    volumes:
+      - ./src:/carmarket/src
+      - ./commands:/carmarket/commands
+      - static_content:/carmarket/src/static
+      - media_content:/carmarket/src/media
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16.4
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "5000:80"
+    volumes:
+      - pg_admin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+  mongodb:
+    image: mongo:8-noble
+    container_name: mongo_db_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    env_file:
+      - .env
+    restart: on-failure
+
+  mongoadmin:
+    image: mongo-express
+    restart: on-failure
+    container_name: mongo_admin_container
+    ports:
+      - "8091:8081"
+    env_file:
+      - .env
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+
+  nginx:
+    image: nginx:1.27
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_content:/carmarket/src/static
+      - media_content:/carmarket/src/media
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+#  redis:
+#    ...
+#
+
+volumes:
+  pg_data: { }
+  pg_admin: { }
+  mongo_data: { }
+  static_content: {}
+  media_content: {}
